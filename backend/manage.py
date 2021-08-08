@@ -1,5 +1,5 @@
 from src.api import app
-from src.database.models import db
+from src.database.models import db, db_drop_and_create_all, append_data
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 import os 
@@ -16,21 +16,14 @@ def runserver():
     app.run(debug=True)
 
 @manager.command
+def setup_db():
+    db_drop_and_create_all()
+    append_data()
+
+
+@manager.command
 def runtests():
-    os.system("python tests/test_api.py")
-
-@manager.command
-def salom():
-    return {
-        "message": "Assalomu alaykum!"
-    }
-
-
-@manager.command
-def sifatsiz_ekansan():
-    return {
-        "message": "Tur yo'qol!"
-    }
+    os.system("python3 test_app.py")
 
 
 if __name__ == "__main__":

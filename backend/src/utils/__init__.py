@@ -34,6 +34,18 @@ def check_movie(movie, movie_id):
             "message": "Movie with id {} not found".format(movie_id)
         }, 404)
 
+def check_movie_title(title, movies_title,):
+    if title.lower() in movies_title:
+        raise DataBaseError({
+                "message": "Movie with given title exists in database"
+            }, 400)
+
+def check_genre_name(genre_name, genres_name):
+    if genre_name.lower() in genres_name:
+        raise DataBaseError({
+                "message": "Genre with given name exists in database"
+            }, 400)
+
 
 def check_genre(genre, genre_id):
     if not genre:

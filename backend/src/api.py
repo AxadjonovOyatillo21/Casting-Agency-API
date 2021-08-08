@@ -31,6 +31,8 @@ from .utils import (
     date_validator,
     paginate_data,
     check_genre,
+    check_movie_title,
+    check_genre_name,
     DataBaseError
 )
 
@@ -38,7 +40,7 @@ from .utils import (
 def create_app(test_config=None):
     app = Flask(__name__)
     app.config["SECRET_KET"] = os.urandom(50)
-    cors = CORS(app, resources={r'/api/*': {'origins': '*'}})
+    cors = CORS(app, resources={r"/*": {"origins": "*"}})
     setup_db(app)
 
     @app.after_request
@@ -53,106 +55,108 @@ def create_app(test_config=None):
     # Routes #
     #========#
 
-    @app.route('/api')
+    @app.route("/")
     @decorator.cross_origin()
     def home_page():
-        return jsonify({
+        return {
             "success": True,
             "message": "Casting agency is running 🚀✨"
-        })
+        }
 
-    @app.route('/api/actors')
+    @app.route("/actors")
     @decorator.cross_origin()
     def get_actors():
         actors = [actor.short()
                   for actor in Actor.query.order_by(Actor.id).all()]
         current_actors = paginate_data(request, actors)
-        return jsonify({
+        return {
             "success": True,
             "actors": current_actors,
             "total_actors": len(current_actors)
-        })
+        }
 
-    @app.route('/api/movies')
+    @app.route("/movies")
     @decorator.cross_origin()
     def get_movies():
         movies = [movie.short()
                   for movie in Movie.query.order_by(Movie.id).all()]
         current_movies = paginate_data(request, movies)
-        return jsonify({
+        return {
             "success": True,
             "movies": current_movies,
             "total_movies": len(current_movies)
-        })
+        }
 
-    @app.route('/api/genres')
+    @app.route("/genres")
     @decorator.cross_origin()
     def get_genres():
         genres = [genre.short()
                   for genre in MovieGenre.query.order_by(MovieGenre.id).all()]
         current_genres = paginate_data(request, genres)
-        return jsonify({
+        return {
             "success": True,
             "genres": current_genres,
             "total_genres": len(current_genres)
-        })
+        }
 
-    @app.route('/api/actors-detail')
+    @app.route("/actors-detail")
     @decorator.cross_origin()
     @requires_auth("view:actors")
     def get_actors_detail(payload):
-        actors = [actor.format()
+        actors = [actor.short()
                   for actor in Actor.query.order_by(Actor.id).all()]
         current_actors = paginate_data(request, actors)
-        return jsonify({
+        return {
             "success": True,
             "actors": current_actors,
             "total_actors": len(current_actors)
-        })
+        }
 
-    @app.route("/api/movies-detail")
+    @app.route("/movies-detail")
     @decorator.cross_origin()
     @requires_auth("view:movies")
     def get_movies_detail(payload):
         movies = [movie.format()
                   for movie in Movie.query.order_by(Movie.id).all()]
         current_movies = paginate_data(request, movies)
-        return jsonify({
+        return {
             "success": True,
             "movies": current_movies,
             "total_movies": len(current_movies)
-        })
+        }
 
-    @app.route('/api/genres-detail')
+    @app.route("/genres-detail")
     @decorator.cross_origin()
     @requires_auth("view:genres")
     def get_genres_detail(payload):
         genres = [genre.format()
                   for genre in MovieGenre.query.order_by(MovieGenre.id).all()]
         current_genres = paginate_data(request, genres)
-        return jsonify({
+        return {
             "success": True,
             "genres": current_genres,
             "total_genres": len(MovieGenre.query.all())
-        })
+        }
 
-    @app.route('/api/genres', methods=["POST"])
+    @app.route("/genres", methods=["POST"])
     @decorator.cross_origin()
     @requires_auth("add:genres")
     def add_genre(payload):
         data = request.get_json() or abort(400)
         genre_name = data.get("genre_name", None) or abort(400)
+        genres_name = [genre.genre_name.lower() for genre in MovieGenre.query.all()]
 
         if string_validator(genre_name):
             try:
+                check_genre_name(genre_name, genres_name)
                 genre = MovieGenre(genre_name=genre_name)
                 genre.insert()
-                return jsonify({
+                return {
                     "success": True,
                     "created": True,
                     "genre": genre.format(),
                     "total_genres": len(MovieGenre.query.all())
-                })
+                }
             except SQLAlchemyError:
                 db.session.rollback()
                 abort(422)
@@ -162,20 +166,20 @@ def create_app(test_config=None):
             abort(400)
 
 
-    @app.route("/api/genres/<int:genre_id>")
+    @app.route("/genres/<int:genre_id>")
     @decorator.cross_origin()
     @requires_auth("view:genres")
     def get_single_genre(payload, genre_id: int):
         genre = MovieGenre.query.get(genre_id)
         check_genre(genre, genre_id)
 
-        return jsonify({
+        return {
             "success": True,
             "genre": genre.format(),
             "total_genres": len(MovieGenre.query.all())
-        })
+        }
 
-    @app.route("/api/genres/<int:genre_id>", methods=["PATCH"])
+    @app.route("/genres/<int:genre_id>", methods=["PATCH"])
     @decorator.cross_origin()
     @requires_auth("update:genres")
     def update_genre(payload, genre_id: int):
@@ -189,12 +193,12 @@ def create_app(test_config=None):
 
         try:
             genre.update()
-            return jsonify({
+            return {
                 "success": True,
                 "updated": True,
                 "genre": genre.short(),
                 "total_genres": len(MovieGenre.query.all())
-            })
+            }
         except SQLAlchemyError:
             db.session.rollback()
             abort(422)
@@ -202,7 +206,7 @@ def create_app(test_config=None):
             db.session.close()
 
 
-    @app.route("/api/genres/<int:genre_id>", methods=["DELETE"])
+    @app.route("/genres/<int:genre_id>", methods=["DELETE"])
     @decorator.cross_origin()
     @requires_auth("delete:genres")
     def delete(payload, genre_id: int):
@@ -211,11 +215,11 @@ def create_app(test_config=None):
 
         try:
             genre.delete()
-            return jsonify({
+            return {
                 "success": True,
                 "deleted_id": genre.id,
                 "total_genres": len(MovieGenre.query.all())
-            })
+            }
         except SQLAlchemyError:
             db.session.rollback()
             abort(422)
@@ -223,7 +227,7 @@ def create_app(test_config=None):
             db.session.close()
 
 
-    @app.route("/api/actors", methods=["POST"])
+    @app.route("/actors", methods=["POST"])
     @decorator.cross_origin()
     @requires_auth("add:actors")
     def add_actors(payload):
@@ -243,12 +247,12 @@ def create_app(test_config=None):
                         if movie not in actor.related_movies:
                             actor.related_movies.append(movie)
                 actor.insert()
-                return jsonify({
+                return {
                     "success": True,
                     "created": True,
                     "actor": actor.short(),
                     "total_actors": len(Actor.query.all())
-                })
+                }
             except SQLAlchemyError:
                 db.session.rollback()
                 abort(422)
@@ -259,20 +263,20 @@ def create_app(test_config=None):
 
 
 
-    @app.route("/api/actors/<int:actor_id>")
+    @app.route("/actors/<int:actor_id>")
     @decorator.cross_origin()
     @requires_auth("view:actors")
     def get_single_actor(payload, actor_id: int):
         actor = Actor.query.get(actor_id)
         check_actor(actor, actor_id)
 
-        return jsonify({
+        return {
             "success": True,
             "actor": actor.format(),
             "total_actors": len(Actor.query.all())
-        })
+        }
 
-    @app.route("/api/actors/<int:actor_id>", methods=['DELETE'])
+    @app.route("/actors/<int:actor_id>", methods=["DELETE"])
     @decorator.cross_origin()
     @requires_auth("delete:actors")
     def delete_actor(payload, actor_id: int):
@@ -280,11 +284,11 @@ def create_app(test_config=None):
         check_actor(actor, actor_id)
         try:
             actor.delete()
-            return jsonify({
+            return {
                 "success": True,
                 "deleted_id": actor.id,
                 "total_actors": len(Actor.query.all())
-            })
+            }
         except SQLAlchemyError:
             db.session.rollback()
             abort(422)
@@ -292,7 +296,7 @@ def create_app(test_config=None):
             db.session.close()
 
 
-    @app.route("/api/actors/<int:actor_id>", methods=["PATCH"])
+    @app.route("/actors/<int:actor_id>", methods=["PATCH"])
     @decorator.cross_origin()
     @requires_auth("update:actors")
     def update_actor(payload, actor_id: int):
@@ -326,12 +330,12 @@ def create_app(test_config=None):
 
         try:
             actor.update()
-            return jsonify({
+            return {
                 "success": True,
                 "updated": True,
                 "actor": actor.short(),
                 "total_actors": len(Actor.query.all())
-            })
+            }
         except SQLAlchemyError:
             db.session.rollback()
             abort(422)
@@ -340,7 +344,7 @@ def create_app(test_config=None):
 
 
 
-    @app.route("/api/movies", methods=["POST"])
+    @app.route("/movies", methods=["POST"])
     @decorator.cross_origin()
     @requires_auth("add:movies")
     def add_movie(payload):
@@ -349,9 +353,10 @@ def create_app(test_config=None):
         release_date = data.get("release_date", None) or abort(400)
         actors_id = data.get("actors_id", None)
         genres_id = data.get("genres_id", None)
-
+        movies_title = [movie.title.lower() for movie in Movie.query.all()]
         if string_validator(title) and date_validator(release_date):
             try:
+                check_movie_title(title, movies_title)
                 movie = Movie(title=title, release_date=release_date)
                 if id_validator(actors_id):
                     for actor_id in actors_id:
@@ -366,12 +371,12 @@ def create_app(test_config=None):
                         if genre not in movie.genres:
                             movie.genres.append(genre)
                 movie.insert()
-                return jsonify({
+                return {
                     "success": True,
                     "created": True,
                     "movie": movie.short(),
                     "total_movies": len(Movie.query.all())
-                })
+                }
             except SQLAlchemyError:
                 db.session.rollback()
                 abort(422)
@@ -382,19 +387,19 @@ def create_app(test_config=None):
 
 
 
-    @app.route("/api/movies/<int:movie_id>")
+    @app.route("/movies/<int:movie_id>")
     @decorator.cross_origin()
     @requires_auth("view:movies")
     def get_single_movie(payload, movie_id: int):
         movie = Movie.query.get(movie_id)
         check_movie(movie, movie_id)
-        return jsonify({
+        return {
             "success": True,
             "movie": movie.format(),
             "total_movies": len(Movie.query.all())
-        })
+        }
 
-    @app.route("/api/movies/<int:movie_id>", methods=["PATCH"])
+    @app.route("/movies/<int:movie_id>", methods=["PATCH"])
     @decorator.cross_origin()
     @requires_auth("update:movies")
     def update_movies(payload, movie_id: int):
@@ -442,15 +447,14 @@ def create_app(test_config=None):
                     remove_genre_id) or abort(400)
                 if remove_genre in movie.genres:
                     movie.genres.remove(remove_genre)
-
         try:
             movie.update()
-            return jsonify({
-                "succes": True,
+            return {
+                "success": True,
                 "updated": True,
                 "movie": movie.short(),
                 "total_movies": len(Movie.query.all())
-            })
+            }
         except SQLAlchemyError:
             db.session.rollback()
             abort(422)
@@ -459,7 +463,7 @@ def create_app(test_config=None):
 
 
 
-    @app.route("/api/movies/<int:movie_id>", methods=["DELETE"])
+    @app.route("/movies/<int:movie_id>", methods=["DELETE"])
     @decorator.cross_origin()
     @requires_auth("delete:movies")
     def delete_movies(payload, movie_id: int):
@@ -467,11 +471,11 @@ def create_app(test_config=None):
         check_movie(movie, movie_id)
         try:
             movie.delete()
-            return jsonify({
+            return {
                 "success": True,
                 "deleted_id": movie.id,
                 "total_movies": len(Movie.query.all())
-            })
+            }
         except SQLAlchemyError:
             db.session.rollback()
             abort(422)
@@ -488,75 +492,75 @@ def create_app(test_config=None):
 
     @app.errorhandler(400)
     def bad_request(e):
-        return jsonify({
+        return {
             "success": False,
             "error_code": 400,
             "error_message": "Bad Request"
-        }), 400
+        }, 400
 
     @app.errorhandler(401)
     def unauthorized(e):
-        return jsonify({
+        return {
             "success": False,
             "error_code": 401,
             "error_message": "Unauthorized"
-        }), 401
+        }, 401
 
     @app.errorhandler(403)
     def forbidden(e):
-        return jsonify({
+        return {
             "success": False,
             "error_code": 403,
             "error_message": "Access Denied"
-        }), 403
+        }, 403
 
     @app.errorhandler(404)
     def resource_not_found(e):
-        return jsonify({
+        return {
             "success": False,
             "error_code": 404,
             "error_message": "Resource Not Found"
-        }), 404
+        }, 404
 
     @app.errorhandler(405)
     def method_not_allowed(e):
-        return jsonify({
+        return {
             "success": False,
             "error_code": 405,
             "error_message": "Method Not Allowed"
-        }), 405
+        }, 405
 
     @app.errorhandler(422)
     def unprocessable_entity(e):
-        return jsonify({
+        return {
             "success": False,
             "error_code": 422,
             "error_message": "Unprocessable Entity"
-        }), 422
+        }, 422
 
     @app.errorhandler(500)
     def internal_server_error(e):
-        return jsonify({
+        return {
             "success": False,
             "error_code": 500,
             "error_message": "Internal Server Error"
-        }), 500
+        }, 500
 
     @app.errorhandler(AuthError)
     def authentication_error(e: AuthError):
-        return jsonify({
+        return {
             "success": False,
             "error_code": e.status_code,
             "erorr_message": e.error["description"]
-        }), e.status_code
+        }, e.status_code
 
     @app.errorhandler(DataBaseError)
     def database_error(e: DataBaseError):
-        return jsonify({
+        return {
             "success": False,
             "error_code": e.status_code,
             "error_message": e.error["message"]
-        }), e.status_code
+        }, e.status_code
 
     return app
 

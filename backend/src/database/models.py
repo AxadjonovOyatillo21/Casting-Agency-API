@@ -11,11 +11,27 @@ now = datetime.now()
 
 
 def setup_db(app, database_path=database_path):
-    app.config["SQLALCHEMY_DATABASE_URI"] = database_path or "sqlite:///database.sqlite"
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_path or "sqlite:///database/database.sqlite"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.init_app(app)
     db.app = app
     return db
+
+def append_data():
+    actor1 = Actor(name="Taner Olmez", age=30, gender="man")
+    actor2 = Actor(name="Sinem Unsal", age=29, gender="woman")
+    genre1 = MovieGenre(genre_name="adventure")
+    genre2 = MovieGenre(genre_name="science-fiction")
+    movie1 = Movie(title="Mucize Doktor", release_date="12/12/2019")
+    movie2 = Movie(title="Lucy", release_date="12/12/2006")
+    actor1.insert(), actor2.insert()
+    genre1.insert(), genre2.insert()
+    movie1.insert(), movie2.insert()
+
+def db_drop_and_create_all():
+    db.drop_all()
+    db.create_all()
+
 
 # =================== #
 # Association Tables  #

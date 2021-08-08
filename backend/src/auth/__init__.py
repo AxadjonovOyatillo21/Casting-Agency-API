@@ -13,6 +13,17 @@ AUTH0_DOMAIN = getenv("AUTH_DOMAIN")
 ALGORITHMS = ["RS256"]
 API_AUDIENCE = getenv("API_AUDIENCE")
 
+# SetUp jwks
+
+file_name = "data.jwks.json"
+
+if open(file_name, "rb").read():
+    jwks = json.load(open(file_name, "rb"))
+else:
+    jsonurl = urlopen(f"https://{AUTH0_DOMAIN}/.well-known/jwks.json")
+    content = jsonurl.read()
+    open(file_name, "wb").write(content)
+    jwks = json.loads(content)
 
 # Define AuthError Exception
 
@@ -51,8 +62,7 @@ def check_permissions(payload, permission):
 
 
 def verify_decode_jwt(token):
-    json_url = urlopen("https://{}/.well-known/jwks.json".format(AUTH0_DOMAIN))
-    jwks = json.loads(json_url.read())
+    global jwks
 
     unverified_token = jwt.get_unverified_header(token)
 
@@ -92,7 +102,7 @@ def verify_decode_jwt(token):
         except jwt.JWTClaimsError:
             raise AuthError({
                 "code": "invalid_claims",
-                'description':
+                "description":
                 "Incorrect claims. Please, check the audience and issuer."
             }, 401)
         except Exception:
@@ -106,7 +116,7 @@ def verify_decode_jwt(token):
     })
 
 
-def requires_auth(permission=''):
+def requires_auth(permission=""):
     def requires_auth_decorator(f):
         @wraps(f)
         def wrapper(*args, **kwargs):
