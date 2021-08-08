@@ -12,7 +12,7 @@ There are 3 roles:
     - Executive Producer
 And this API had public endpoints too.
 
-All of this roles has their permissions:
+All of this roles has their permissions
     * Assistant:
         - view:genres
         - view:actors
