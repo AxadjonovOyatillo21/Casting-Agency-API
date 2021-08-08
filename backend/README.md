@@ -5,11 +5,14 @@ This is a Restful API written in Flask micro-framework.
 
 
 ## Introuction
+
 The Casting Agency API based on RBAC(role based access control).
+
 There are 3 roles:
-    - Assistant
-    - Director
-    - Executive Producer
+  - Assistant
+  - Director
+  - Executive Producer
+
 And this API had public endpoints too.
 
 * All of this roles has their permissions
