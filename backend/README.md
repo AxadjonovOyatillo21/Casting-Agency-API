@@ -168,8 +168,8 @@ Let's SetUp our curl to send requests
 ```
 
 # GET /
-## General
-  **Home Page😃**
+## General:
+  - **Home Page😃**
 
 ## Example:
     - Request: ` curl $host `
