@@ -69,9 +69,11 @@ This is a Restful API written in Flask micro-framework.
   - Auth type: JWT
   - This API supports RBAC
   - There are 3 roles for management:
-    - Assistant
-    - Director
-    - Executive Producer
+    ```code
+        - Assistant
+        - Director
+        - Executive Producer
+    ```
   - Permissions:
     ```code
         - Assitant:
