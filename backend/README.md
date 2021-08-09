@@ -48,9 +48,10 @@ This is a Restful API written in Flask micro-framework.
     ```
 
 # Authentication:
-This API requires auth, and uses auth0 authentication system
-**Auth type🔐**: JWT
-This API supports RBAC 🔐
+### This API requires auth, and uses auth0 authentication system
+### **Auth type🔐**: JWT
+### This API supports RBAC 🔐
+
 **There are 3 roles for management**:
   ```code
     - Assistant🔎
@@ -91,8 +92,8 @@ This API supports RBAC 🔐
         - **casting_agency123**
   ```
 **Login🔐 to accounts**:
-    - To `login/signup` you should got to the page: https://auth0-service.us.auth0.com/authorize?response_type=token&audience=casting_agency&client_id=kHjeEWjekFk5ke7sFU0lLzvCsWFaGAKY&redirect_uri=http://127.0.0.1:8100
-    - After `login/signup` get token from url, this token is used to send requests to API endpoints
+  - To `login/signup` you should got to the page: https://auth0-service.us.auth0.com/authorize?response_type=token&audience=casting_agency&client_id=kHjeEWjekFk5ke7sFU0lLzvCsWFaGAKY&redirect_uri=http://127.0.0.1:8100
+  - After `login/signup` get token from url, this token is used to send requests to API endpoints
 
 
 
