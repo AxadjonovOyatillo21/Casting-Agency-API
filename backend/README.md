@@ -13,42 +13,39 @@ This is a Restful API written in Flask micro-framework.
 
 
 # SetUp database
-1. Create database called `casting_agency` or something which you like. :
-2. Activate environment variables using following command:
+* Create database called `casting_agency` or something which you like. :
+* Activate environment variables using following command:
         ```bash
             cd backend
             source setup.sh
             pip install -r requirements.txt
             export DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<your_db_name>"
         ```
-3. Create database for API testing and change database_path on ` test_app.py ` file
-4. To setup models and fill database run following command:
+* Create database for API testing and change database_path on ` test_app.py ` file
+* To setup models and fill database run following command:
         ```bash
             python3 manage.py setup_database
         ```
 
 
 # Run application
-⚠ Firstly you should setup database
-Windows using Git Bash:
-    *
-        ```bash
-            cd backend
-            source setup.sh
-            pip install -r requirements.txt
-            export DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<your_db_name>"
-            python manage.py runserver
-        ```
-
-MacOS/Linux:
-    *
-        ```bash
-            cd backend
-            source setup.sh
-            pip install -r requirements.txt
-            export DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<your_db_name>"
-            python3 manage.py runserver
-        ```
+* ⚠ Firstly you should setup database
+* Windows using Git Bash:
+    ```bash
+        cd backend
+        source setup.sh
+        pip install -r requirements.txt
+        export DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<your_db_name>"
+        python manage.py runserver
+    ```
+* MacOS/Linux:
+    ```bash
+        cd backend
+        source setup.sh
+        pip install -r requirements.txt
+        export DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<your_db_name>"
+        python3 manage.py runserver
+    ```
 
 1. Setup
 2. Getting Started
