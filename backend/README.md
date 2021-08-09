@@ -201,18 +201,18 @@ Let's SetUp our curl to send requests
   - Response:
     ```json
         {
-        "genres": [
-            {
-            "genre_name": "science-fiction",
-            "id": 2
-            },
-            {
-            "genre_name": "lorem ipsum",
-            "id": 3
-            }
-        ],
-        "success": true,
-        "total_genres": 2
+            "genres": [
+                {
+                    "genre_name": "science-fiction",
+                    "id": 2
+                },
+                {
+                    "genre_name": "lorem ipsum",
+                    "id": 3
+                }
+            ],
+            "success": true,
+            "total_genres": 2
         }
     ```
 ### Errors🐞
@@ -231,18 +231,18 @@ Let's SetUp our curl to send requests
   - Response:
     ```json
         {
-        "actors": [
-            {
-            "id": 3,
-            "name": "Taner Olmez"
-            },
-            {
-            "id": 4,
-            "name": "Onur Tuna"
-            }
-        ],
-        "success": true,
-        "total_actors": 2
+            "actors": [
+                {
+                    "id": 3,
+                    "name": "Taner Olmez"
+                },
+                {
+                    "id": 4,
+                    "name": "Onur Tuna"
+                }
+            ],
+            "success": true,
+            "total_actors": 2
         }
     ```
 ### Errors🐞
@@ -261,18 +261,18 @@ Let's SetUp our curl to send requests
   - Response:
     ```json
         {
-        "movies": [
-            {
-            "id": 2,
-            "title": "Lucy"
-            },
-            {
-            "id": 3,
-            "title": "Iron Man"
-            }
-        ],
-        "success": true,
-        "total_movies": 2
+            "movies": [
+                {
+                    "id": 2,
+                    "title": "Lucy"
+                },
+                {
+                    "id": 3,
+                    "title": "Iron Man"
+                }
+            ],
+            "success": true,
+            "total_movies": 2
         }
     ```
 ### Errors🐞
@@ -297,19 +297,19 @@ Let's SetUp our curl to send requests
         {
             "genres": [
                 {
-                "genre_name": "science-fiction",
-                "id": 2,
-                "movies_in_this_genre": [
-                    {
+                    "genre_name": "science-fiction",
                     "id": 2,
-                    "title": "Lucy"
-                    }
-                ]
+                    "movies_in_this_genre": [
+                        {
+                        "id": 2,
+                        "title": "Lucy"
+                        }
+                    ]
                 },
                 {
-                "genre_name": "lorem ipsum",
-                "id": 3,
-                "movies_in_this_genre": []
+                    "genre_name": "lorem ipsum",
+                    "id": 3,
+                    "movies_in_this_genre": []
                 }
             ],
             "success": true,
@@ -339,23 +339,23 @@ Let's SetUp our curl to send requests
         {
             "actors": [
                 {
-                "age": 33,
-                "gender": "woman",
-                "id": 3,
-                "movies": [
-                    {
-                    "id": 2,
-                    "title": "Lucy"
-                    }
-                ],
-                "name": "Scarlet Johansson"
+                    "age": 33,
+                    "gender": "woman",
+                    "id": 3,
+                    "movies": [
+                        {
+                            "id": 2,
+                            "title": "Lucy"
+                        }
+                    ],
+                    "name": "Scarlet Johansson"
                 },
                 {
-                "age": 33,
-                "gender": "man",
-                "id": 4,
-                "movies": [],
-                "name": "Onur Tuna"
+                    "age": 33,
+                    "gender": "man",
+                    "id": 4,
+                    "movies": [],
+                    "name": "Onur Tuna"
                 }
             ],
             "success": true,
@@ -385,28 +385,28 @@ Let's SetUp our curl to send requests
         {
             "movies": [
                 {
-                "id": 2,
-                "movie_actors": [
-                    {
-                    "id": 3,
-                    "name": "Onur Tuna"
-                    }
-                ],
-                "movie_genres": [
-                    {
-                    "genre_name": "science-fiction",
-                    "id": 2
-                    }
-                ],
-                "release_date": "12/12/2006",
-                "title": "Lucy"
+                    "id": 2,
+                    "movie_actors": [
+                        {
+                        "id": 3,
+                        "name": "Onur Tuna"
+                        }
+                    ],
+                    "movie_genres": [
+                        {
+                        "genre_name": "science-fiction",
+                        "id": 2
+                        }
+                    ],
+                    "release_date": "12/12/2006",
+                    "title": "Lucy"
                 },
                 {
-                "id": 3,
-                "movie_actors": [],
-                "movie_genres": [],
-                "release_date": "11/12/2007",
-                "title": "Iron Man"
+                    "id": 3,
+                    "movie_actors": [],
+                    "movie_genres": [],
+                    "release_date": "11/12/2007",
+                    "title": "Iron Man"
                 }
             ],
             "success": true,
