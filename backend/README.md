@@ -140,8 +140,38 @@ This is a Restful API written in Flask micro-framework.
 > ![CURL](./screenshots/postman2.png)
 > ![CURL](./screenshots/postman3.png)
 
+# API Errors
+----------
+| Error |  Description
+|-------|-------------------------|
+|  400  |  Bad request            |
+|-------|-------------------------|
+|  401  |  Unauthorized           |
+|-------|-------------------------|
+|  403  |  Access Denied          |
+|-------|-------------------------|
+|  404  |  Not found              |
+|-------|-------------------------|
+|  405  |  Method not allowed     |
+|-------|-------------------------|
+|  422  |  Unprocessable Entity   |
+|-------|-------------------------|
+|  500  |  Internal Server Error  |
 
+# API reference
 
+## Authentication🔐
+  In this API authentication is **required**, and it uses JWT tokens for auth, but it contains **public** endpoints too
+
+# Endpoints
+To send requests we use curl, another tool is - Postman :)
+Let's SetUp our curl to send requests
+```bash
+    host=127.0.0.1:5000
+    token=<jwt_token>
+```
+
+# GET /
 
 
 
