@@ -109,8 +109,10 @@ This is a Restful API written in Flask micro-framework.
         export DIRECTOR_TOKEN="<director_token>"
         export PRODUCER_TOKEN="<producer_token>"
         python3 manage.py runtests
-    ```
-![CURL](./screenshots/unittest_tests.PNG)
+```
+
+
+> ![CURL](./screenshots/unittest_tests.PNG)
 
 
 
