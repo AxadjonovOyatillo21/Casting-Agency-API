@@ -52,8 +52,10 @@ This is a Restful API written in Flask micro-framework.
 > ![CURL](./screenshots/runApp2.png)
 * To setup models and fill database run following command:
     ```bash
-        python3 manage.py setup_database
+        python3 manage.py setup_db
     ```
+> ![CURL](./screenshots/loginResults.PNG)
+
 
 # Authentication
 ### This API requires auth, and uses auth0 authentication system
@@ -113,21 +115,14 @@ This is a Restful API written in Flask micro-framework.
 > ![CURL](./screenshots/logout.PNG)
 
 # Testing
+* ⚠ First of all Ran the commands on **[Run application](#run)** section!
 * ⚠ Firstly you should create database for API testing and change database_path on ` test_app.py ` file, and setup environment variables
 ## First method: unittest
 1. **Run the following comands:**
 ```bash
-        cd backend
-        source setup.sh
-        export TEST_DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<your_db_name_for_testing>"
-        export ASSISTANT_TOKEN="<assitant_token>"
-        export DIRECTOR_TOKEN="<director_token>"
-        export PRODUCER_TOKEN="<producer_token>"
         python3 manage.py runtests
 ```
-
-
-> ![CURL](./screenshots/unittestTests.PNG)
+> ![CURL](./screenshots/unittestTests.png)
 2. **Success🎉**
 
 ## Second method: Postman
