@@ -168,6 +168,17 @@ Let's SetUp our curl to send requests
 ```
 
 # GET /
+**Home Page😃**
+Sample request:
+  ` curl $host `
+Response:
+  ```json
+    {
+        "message": "Casting agency is running 🚀🎉",
+        "success": true
+    }
+  ```
+
 
 
 
