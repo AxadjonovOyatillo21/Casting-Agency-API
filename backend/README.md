@@ -18,7 +18,7 @@ This is a Restful API written in Flask micro-framework.
 
 
 
-# Run application
+# Run application(run)
 * ⚠ Firstly you should setup database
 * Windows using Git Bash:
     ```bash
@@ -115,7 +115,7 @@ This is a Restful API written in Flask micro-framework.
 > ![CURL](./screenshots/logout.PNG)
 
 # Testing
-* ⚠ First of all Ran the commands on [Run application](#Run Apllication) section!
+* ⚠ First of all Ran the commands on [Run application](#run) section!
 * ⚠ Firstly you should create database for API testing and change database_path on ` test_app.py ` file, and setup environment variables
 ## First method: unittest
 1. **Run the following comands:**
