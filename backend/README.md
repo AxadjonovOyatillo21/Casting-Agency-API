@@ -3,11 +3,11 @@ The Casting Agency models a company that is responsible for creating movies and 
 This is a Restful API written in Flask micro-framework.
 
 ## Introduction
-Tech Stack:
-    *   ------------------------------------------------------------------------------
-        |    Language    | Framework |  Database  | Tools for testting | Auth System |
-        |----------------|-----------|------------|--------------------|-------------|
-        | Python(v3.x.x) |   Flask   | Postgresql |  Unittest&Postman  |    Auth0    |
+## Tech Stack
+>*    ------------------------------------------------------------------------------
+>*    |    Language    | Framework |  Database  | Tools for testting | Auth System |
+>*    |----------------|-----------|------------|--------------------|-------------|
+>*    | Python(v3.x.x) |   Flask   | Postgresql |  Unittest&Postman  |    Auth0    |
 
 1. Setup
 2. Getting Started
