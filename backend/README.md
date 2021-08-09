@@ -169,9 +169,11 @@ Let's SetUp our curl to send requests
 
 # GET /
 **Home Page😃**
-Sample request:
+
+## Sample request:
   ` curl $host `
-Response:
+
+## Response:
   ```json
     {
         "message": "Casting agency is running 🚀🎉",
