@@ -74,6 +74,8 @@ This is a Restful API written in Flask micro-framework.
         - Director
         - Executive Producer
     ```
+
+
   - Permissions:
     ```code
         - Assitant:
@@ -95,15 +97,18 @@ This is a Restful API written in Flask micro-framework.
             - `delete:movies`
     ```
 
+
   - To testing API, I`ve prepared three accounts:
-    - Assistant account:
-        - **email**: caAssistant@gmail.com
-    - Director account:
-        - **email**: caDirector@gmail.com
-    - Executive Producer:
-        - **email**: caProducer@gmail.com
-    - Password:
-        - **casting_agency123**
+    ```code
+        - Assistant account:
+            - **email**: caAssistant@gmail.com
+        - Director account:
+            - **email**: caDirector@gmail.com
+        - Executive Producer:
+            - **email**: caProducer@gmail.com
+        - Password:
+            - **casting_agency123**
+    ```
 
 
 
