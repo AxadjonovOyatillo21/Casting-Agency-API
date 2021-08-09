@@ -7,19 +7,18 @@ This is a Restful API written in Flask micro-framework.
 ## Introuction
 
 ### API Structure
->* src
->*        - auth
->*            - __init__.py
->*        - database
->*            - models.py
->*            - database.db > if postgres database doesn't exists
->*        - utils
->*            __init__.py
->*        - api.py
-
->* manaage.py
->* setup.sh
->* data.jwks.json
+src
+    - auth
+        - __init__.py
+    - database
+        - models.py
+        - database.db > if postgres database doesn't exists
+    - utils
+        - __init__.py
+    - api.py
+manage.py
+setup.sh
+data.jwks.json
 
 
 The Casting Agency API based on RBAC(role based access control).
