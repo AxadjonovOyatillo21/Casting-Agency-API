@@ -133,8 +133,17 @@ This is a Restful API written in Flask micro-framework.
 ## Second method: Postman
 1. Open your postman app, and import postman collection
 2. Then setUp environment variables(global)
-> ![CURL](./screenshots/setUp.PNG)
-
+> ![CURL](./screenshots/setUp.png)
+3. Run the following commands:
+```bash
+    python3 manage.py setup_db
+    python3 manage.py runserver
+```
+> ![CURL](./screenshots/fill.png)
+4. Run collection
+> ![CURL](./screenshots/postman1.png)
+> ![CURL](./screenshots/postman2.png)
+> ![CURL](./screenshots/postman3.png)
 
 
 
