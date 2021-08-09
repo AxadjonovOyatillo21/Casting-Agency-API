@@ -15,17 +15,17 @@ This is a Restful API written in Flask micro-framework.
 # SetUp database
 * Create database called `casting_agency` or something which you like. :
 * Activate environment variables using following command:
-        ```bash
-            cd backend
-            source setup.sh
-            pip install -r requirements.txt
-            export DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<your_db_name>"
-        ```
+    ```bash
+        cd backend
+        source setup.sh
+        pip install -r requirements.txt
+        export DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<your_db_name>"
+    ```
 * Create database for API testing and change database_path on ` test_app.py ` file
 * To setup models and fill database run following command:
-        ```bash
-            python3 manage.py setup_database
-        ```
+    ```bash
+        python3 manage.py setup_database
+    ```
 
 
 # Run application
