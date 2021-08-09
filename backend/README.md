@@ -14,18 +14,8 @@ This is a Restful API written in Flask micro-framework.
 
 # SetUp database
 * Create database called `casting_agency` or something which you like.
-* Activate environment variables using following commands:
-    ```bash
-        cd backend
-        source setup.sh
-        pip install -r requirements.txt
-        export DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<your_db_name>"
-    ```
 * Create database for API testing and change database_path on ` test_app.py ` file
-* To setup models and fill database run following command:
-    ```bash
-        python3 manage.py setup_database
-    ```
+
 
 
 # Run application
@@ -33,18 +23,36 @@ This is a Restful API written in Flask micro-framework.
 * Windows using Git Bash:
     ```bash
         cd backend
+        python -m venv env
+        source env/scripts/activate
         source setup.sh
         pip install -r requirements.txt
         export DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<your_db_name>"
+        export TEST_DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<your_db_name_for_testing>"
+        export ASSISTANT_TOKEN="<assitant_token>"
+        export DIRECTOR_TOKEN="<director_token>"
+        export PRODUCER_TOKEN="<producer_token>"
         python manage.py runserver
     ```
 * MacOS/Linux:
     ```bash
         cd backend
+        python3 -m venv env
+        source env/bin/activate
         source setup.sh
-        pip install -r requirements.txt
+        pip3 install -r requirements.txt
         export DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<your_db_name>"
+        export TEST_DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<your_db_name_for_testing>"
+        export ASSISTANT_TOKEN="<assitant_token>"
+        export DIRECTOR_TOKEN="<director_token>"
+        export PRODUCER_TOKEN="<producer_token>"
         python3 manage.py runserver
+    ```
+> ![CURL](./screenshots/runApp1.png)
+> ![CURL](./screenshots/runApp2.png)
+* To setup models and fill database run following command:
+    ```bash
+        python3 manage.py setup_database
     ```
 
 # Authentication
@@ -117,9 +125,10 @@ This is a Restful API written in Flask micro-framework.
         export PRODUCER_TOKEN="<producer_token>"
         python3 manage.py runtests
 ```
-2. **Success🎉**
+
 
 > ![CURL](./screenshots/unittestTests.PNG)
+2. **Success🎉**
 
 ## Second method: Postman
 1. Open your postman app, and import postman collection
