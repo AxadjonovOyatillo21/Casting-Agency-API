@@ -65,8 +65,8 @@ This is a Restful API written in Flask micro-framework.
   - At present this app can be run locally and it hosted by default. Default URL: `http://127.0.0.1:5000`
 
 ### Authentication:
-  - This requires auth, and uses auth0 authentiocation system
-  - Auth type: JWT
+  - This API requires auth, and uses auth0 authentication system
+  - **Auth type**: JWT
   - This API supports RBAC
   - There are 3 roles for management:
     ```code
@@ -94,6 +94,16 @@ This is a Restful API written in Flask micro-framework.
             - `delete:genres`
             - `delete:movies`
     ```
+    - To testing API, I`ve prepared three accounts:
+        - Assistant account:
+            - **email**: caAssistant@gmail.com
+        - Director account:
+            - **email**: caDirector@gmail.com
+        - Executive Producer:
+            - **email**: caProducer@gmail.com
+        - Password:
+            - **casting_agency123**
+
 
 
 
