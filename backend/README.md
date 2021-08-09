@@ -169,18 +169,18 @@ Let's SetUp our curl to send requests
 
 # GET /
 ### General:
-  - **Home Page😃**
+**Home Page😃**
 
 ### Example:
-  - Request: ` curl $host `
+Request: ` curl $host `
 
-  - Response:
-    ```json
-        {
-            "message": "Casting agency is running 🚀🎉",
-            "success": true
-        }
-    ```
+Response:
+  ```json
+    {
+        "message": "Casting agency is running 🚀🎉",
+        "success": true
+    }
+  ```
 
 
 
