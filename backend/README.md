@@ -100,7 +100,7 @@ This is a Restful API written in Flask micro-framework.
 
 # Testing
 * ⚠ Firstly you should create database for API testing and change database_path on ` test_app.py ` file, and setup environment variables
-1. **First method: unittest**:
+## First method: unittest
 ```bash
         cd backend
         source setup.sh
@@ -113,6 +113,11 @@ This is a Restful API written in Flask micro-framework.
 
 
 > ![CURL](./screenshots/unittestTests.PNG)
+
+## Second method: Postman
+> 1. Open your postman app, and import postman collection
+> 2. Then setUp environment variables(global)
+> ![CURL](./screenshots/setUp.PNG)
 
 
 
