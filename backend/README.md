@@ -92,16 +92,16 @@ This is a Restful API written in Flask micro-framework.
         - **casting_agency123**
   ```
 ## Login🔐 to accounts*:
-To `login/signup` you should got to the page: https://auth0-service.us.auth0.com/authorize?response_type=token&audience=casting_agency&client_id=kHjeEWjekFk5ke7sFU0lLzvCsWFaGAKY&redirect_uri=http://127.0.0.1:8100
+### To `login/signup` you should go to the page: https://auth0-service.us.auth0.com/authorize?response_type=token&audience=casting_agency&client_id=kHjeEWjekFk5ke7sFU0lLzvCsWFaGAKY&redirect_uri=http://127.0.0.1:8100
 > ![CURL](./screenshots/login.PNG)
 
-After `login/signup` get token from url, this token is used to send requests to API endpoints
+### After `login/signup` get token from url, this token is used to send requests to API endpoints
 > ![CURL](./screenshots/loginResults.PNG)
 
-Let's decode jwt, to decode jwt navigate to jwt.io website
+### Let's decode jwt, to decode jwt navigate to jwt.io website
 > ![CURL](./screenshots/jwtio.PNG)
 
-To logout, naviagte to page: https://auth0-service.us.auth0.com/logout
+### To logout, naviagte to page: https://auth0-service.us.auth0.com/logout
 > ![CURL](./screenshots/logout.PNG)
 
 # Testing
