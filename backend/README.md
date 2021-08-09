@@ -66,13 +66,13 @@ This is a Restful API written in Flask micro-framework.
 
 ### Authentication:
   - This API requires auth, and uses auth0 authentication system
-  - **Auth type**: JWT
-  - This API supports RBAC
+  - **Auth type🔐**: JWT
+  - This API supports RBAC 🔐
   - There are 3 roles for management:
     ```code
-        - Assistant
-        - Director
-        - Executive Producer
+        - Assistant🔎
+        - Director🔎♻
+        - Executive Producer🔎♻🎥
     ```
 
 
