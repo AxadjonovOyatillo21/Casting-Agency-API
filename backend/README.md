@@ -13,8 +13,8 @@ This is a Restful API written in Flask micro-framework.
 
 
 # SetUp database
-* Create database called `casting_agency` or something which you like. :
-* Activate environment variables using following command:
+* Create database called `casting_agency` or something which you like.
+* Activate environment variables using following commands:
     ```bash
         cd backend
         source setup.sh
@@ -47,12 +47,29 @@ This is a Restful API written in Flask micro-framework.
         python3 manage.py runserver
     ```
 
-1. Setup
-2. Getting Started
-3. Examples
+# Tests
+* ⚠ Firstly you should create database for API testing and change database_path on ` test_app.py ` file, and setup environment variables
+* To run test run the following commands:
+    ```bash
+        cd backend
+        source setup.sh
+        export DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<your_db_name_for_testing>"
+        python3 manage.py runtests
+    ```
 
+# API documentation
+## Getting Started
 
-## SetUp requirements
+* Base URL: At present this app can be run locally and it hosted by default. Default URL: `http://127.0.0.1:5000`
+* Authentication:
+    - This API based requires auth, and uses auth0 authentiocation system
+    - Auth type: JWT
+    - This API supports RBAC
+    - There are 3 roles:
+        - Assistant
+        - Director
+        - Executive Producer
+
 
 
 
