@@ -61,11 +61,11 @@ This is a Restful API written in Flask micro-framework.
 ## Getting Started
 
 
-Base URL:
+### Base URL:
   - At present this app can be run locally and it hosted by default. Default URL: `http://127.0.0.1:5000`
 
-Authentication:
-  - This API based requires auth, and uses auth0 authentiocation system
+### Authentication:
+  - This requires auth, and uses auth0 authentiocation system
   - Auth type: JWT
   - This API supports RBAC
   - There are 3 roles for management:
@@ -73,23 +73,25 @@ Authentication:
     - Director
     - Executive Producer
   - Permissions:
-    - Assitant:
-        - `view:genres`
-        - `view:actors`
-        - `view:movies`
-    - Director:
-        - All permissions of assistant
-        -  `add:actors`
-        -  `delete:actors`
-        -  `patch:actors`
-        -  `patch:actors`
-        -  `patch:actors`
-    - Executive Producer:
-        - All permissions of director
-        - `add:genres`
-        - `add:movies`
-        - `delete:genres`
-        - `delete:movies`
+    ```code
+        - Assitant:
+            - `view:genres`
+            - `view:actors`
+            - `view:movies`
+        - Director:
+            - All permissions of assistant
+            -  `add:actors`
+            -  `delete:actors`
+            -  `patch:actors`
+            -  `patch:actors`
+            -  `patch:actors`
+        - Executive Producer:
+            - All permissions of director
+            - `add:genres`
+            - `add:movies`
+            - `delete:genres`
+            - `delete:movies`
+    ```
 
 
 
