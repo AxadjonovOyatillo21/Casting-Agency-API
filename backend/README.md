@@ -31,21 +31,24 @@ This is a Restful API written in Flask micro-framework.
 # Run application
 ⚠ Firstly you should setup database
 Windows using Git Bash:
-    ```bash
-        cd backend
-        source setup.sh
-        pip install -r requirements.txt
-        export DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<your_db_name>"
-        python manage.py runserver
-    ```
+    *
+        ```bash
+            cd backend
+            source setup.sh
+            pip install -r requirements.txt
+            export DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<your_db_name>"
+            python manage.py runserver
+        ```
+
 MacOS/Linux:
-    ```bash
-        cd backend
-        source setup.sh
-        pip install -r requirements.txt
-        export DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<your_db_name>"
-        python3 manage.py runserver
-    ```
+    *
+        ```bash
+            cd backend
+            source setup.sh
+            pip install -r requirements.txt
+            export DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<your_db_name>"
+            python3 manage.py runserver
+        ```
 
 1. Setup
 2. Getting Started
