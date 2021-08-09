@@ -112,7 +112,7 @@ This is a Restful API written in Flask micro-framework.
 ```
 
 
-> ![CURL](./screenshots/unittest_tests.PNG)
+> ![CURL](./screenshots/unittestTests.PNG)
 
 
 
