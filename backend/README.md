@@ -101,17 +101,17 @@ This is a Restful API written in Flask micro-framework.
   - To testing API, I`ve prepared three accounts:
     ```code
         - Assistant account:
-            - **email**: caAssistant@gmail.com
+            - **email📫**: caAssistant@gmail.com
         - Director account:
-            - **email**: caDirector@gmail.com
+            - **email📫**: caDirector@gmail.com
         - Executive Producer:
-            - **email**: caProducer@gmail.com
-        - Password:
+            - **email📫**: caProducer@gmail.com
+        - Password🔑:
             - **casting_agency123**
     ```
-    - Login to accounts:
-        - To login/signup you should got to the page: https://auth0-service.us.auth0.com/authorize?response_type=token&audience=casting_agency&client_id=kHjeEWjekFk5ke7sFU0lLzvCsWFaGAKY&redirect_uri=http://127.0.0.1:8100
-        - After login/signup get token from url, this token is used to send request to endpoints
+  - Login to accounts:
+    - To `login/signup` you should got to the page: https://auth0-service.us.auth0.com/authorize?response_type=token&audience=casting_agency&client_id=kHjeEWjekFk5ke7sFU0lLzvCsWFaGAKY&redirect_uri=http://127.0.0.1:8100
+    - After login/signup get token from url, this token is used to send request to endpoints
 
 
 
