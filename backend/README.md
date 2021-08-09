@@ -141,8 +141,8 @@ This is a Restful API written in Flask micro-framework.
 > ![CURL](./screenshots/postman3.png)
 
 # API Errors
-----------
-| Error |  Description
+----------------------------------|
+| Error |  Description            |
 |-------|-------------------------|
 |  400  |  Bad request            |
 |-------|-------------------------|
