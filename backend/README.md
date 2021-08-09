@@ -101,7 +101,7 @@ This is a Restful API written in Flask micro-framework.
 # Testing
 * ⚠ Firstly you should create database for API testing and change database_path on ` test_app.py ` file, and setup environment variables
 1. **First method: unittest**:
-> ```bash
+```bash
         cd backend
         source setup.sh
         export TEST_DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<your_db_name_for_testing>"
@@ -110,7 +110,7 @@ This is a Restful API written in Flask micro-framework.
         export PRODUCER_TOKEN="<producer_token>"
         python3 manage.py runtests
     ```
-> ![CURL](/screenshots/unittest_tests.PNG)
+![CURL](./screenshots/unittest_tests.PNG)
 
 
 
