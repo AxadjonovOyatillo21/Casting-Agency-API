@@ -63,7 +63,7 @@ This is a Restful API written in Flask micro-framework.
 
 * Base URL: At present this app can be run locally and it hosted by default. Default URL: `http://127.0.0.1:5000`
 
-> Authentication:
+- Authentication:
     - This API based requires auth, and uses auth0 authentiocation system
     - Auth type: JWT
     - This API supports RBAC
