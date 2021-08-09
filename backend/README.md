@@ -47,61 +47,59 @@ This is a Restful API written in Flask micro-framework.
         python3 manage.py runserver
     ```
 
-### Authentication:
-  - This API requires auth, and uses auth0 authentication system
-  - **Auth type🔐**: JWT
-  - This API supports RBAC 🔐
-  - There are 3 roles for management:
-    ```code
-        - Assistant🔎
-        - Director🔎♻
-        - Executive Producer🔎♻🎥
-    ```
+# Authentication:
+This API requires auth, and uses auth0 authentication system
+**Auth type🔐**: JWT
+This API supports RBAC 🔐
+**There are 3 roles for management**:
+  ```code
+    - Assistant🔎
+    - Director🔎♻
+    - Executive Producer🔎♻🎥
+  ```
 
+**Permissions**:
+  ```code
+    - Assitant:
+        - `view:genres`
+        - `view:actors`
+        - `view:movies`
+    - Director:
+        - All permissions of assistant
+        -  `add:actors`
+        -  `delete:actors`
+        -  `patch:actors`
+        -  `patch:actors`
+        -  `patch:actors`
+    - Executive Producer:
+        - All permissions of director
+        - `add:genres`
+        - `add:movies`
+        - `delete:genres`
+        - `delete:movies`
+  ```
 
-  - Permissions:
-    ```code
-        - Assitant:
-            - `view:genres`
-            - `view:actors`
-            - `view:movies`
-        - Director:
-            - All permissions of assistant
-            -  `add:actors`
-            -  `delete:actors`
-            -  `patch:actors`
-            -  `patch:actors`
-            -  `patch:actors`
-        - Executive Producer:
-            - All permissions of director
-            - `add:genres`
-            - `add:movies`
-            - `delete:genres`
-            - `delete:movies`
-    ```
-
-
-  - To testing API, I`ve prepared three accounts:
-    ```code
-        - Assistant account:
-            - **email📫**: caAssistant@gmail.com
-        - Director account:
-            - **email📫**: caDirector@gmail.com
-        - Executive Producer:
-            - **email📫**: caProducer@gmail.com
-        - Password🔑:
-            - **casting_agency123**
-    ```
-  - Login to accounts:
+**To testing API, I`ve prepared three accounts**:
+  ```code
+    - Assistant account:
+        - **email📫**: caAssistant@gmail.com
+    - Director account:
+        - **email📫**: caDirector@gmail.com
+    - Executive Producer:
+        - **email📫**: caProducer@gmail.com
+    - Password🔑:
+        - **casting_agency123**
+  ```
+**Login🔐 to accounts**:
     - To `login/signup` you should got to the page: https://auth0-service.us.auth0.com/authorize?response_type=token&audience=casting_agency&client_id=kHjeEWjekFk5ke7sFU0lLzvCsWFaGAKY&redirect_uri=http://127.0.0.1:8100
-    - After login/signup get token from url, this token is used to send requests to API endpoints
+    - After `login/signup` get token from url, this token is used to send requests to API endpoints
 
 
 
 # Testing
 * ⚠ Firstly you should create database for API testing and change database_path on ` test_app.py ` file, and setup environment variables
 ## First method: unittest
-**Run the following comands:**
+1. **Run the following comands:**
 ```bash
         cd backend
         source setup.sh
@@ -111,7 +109,7 @@ This is a Restful API written in Flask micro-framework.
         export PRODUCER_TOKEN="<producer_token>"
         python3 manage.py runtests
 ```
-
+2. **Success🎉**
 
 > ![CURL](./screenshots/unittestTests.PNG)
 
