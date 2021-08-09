@@ -47,23 +47,6 @@ This is a Restful API written in Flask micro-framework.
         python3 manage.py runserver
     ```
 
-# Tests
-* ⚠ Firstly you should create database for API testing and change database_path on ` test_app.py ` file, and setup environment variables
-* To run test run the following commands:
-    ```bash
-        cd backend
-        source setup.sh
-        export DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<your_db_name_for_testing>"
-        python3 manage.py runtests
-    ```
-
-# API documentation
-## Getting Started
-
-
-### Base URL:
-  - At present this app can be run locally and it hosted by default. Default URL: `http://127.0.0.1:5000`
-
 ### Authentication:
   - This API requires auth, and uses auth0 authentication system
   - **Auth type🔐**: JWT
@@ -111,9 +94,23 @@ This is a Restful API written in Flask micro-framework.
     ```
   - Login to accounts:
     - To `login/signup` you should got to the page: https://auth0-service.us.auth0.com/authorize?response_type=token&audience=casting_agency&client_id=kHjeEWjekFk5ke7sFU0lLzvCsWFaGAKY&redirect_uri=http://127.0.0.1:8100
-    - After login/signup get token from url, this token is used to send request to endpoints
+    - After login/signup get token from url, this token is used to send requests to API endpoints
 
 
+
+# Testing
+* ⚠ Firstly you should create database for API testing and change database_path on ` test_app.py ` file, and setup environment variables
+1. **First method: unittest**:
+> ```bash
+        cd backend
+        source setup.sh
+        export TEST_DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<your_db_name_for_testing>"
+        export ASSISTANT_TOKEN="<assitant_token>"
+        export DIRECTOR_TOKEN="<director_token>"
+        export PRODUCER_TOKEN="<producer_token>"
+        python3 manage.py runtests
+    ```
+> ![CURL](/screenshots/unittest_tests.png)
 
 
 

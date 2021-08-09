@@ -1,3 +1,4 @@
+from os import getenv
 import unittest
 import json
 from flask import Flask
@@ -6,18 +7,16 @@ from src.api import create_app
 from src.database.models import setup_db, Movie, MovieGenre, Actor
 
 
-database_name = "casting_agency_test"
-database_path = "postgresql://{}:{}@{}/{}".format(
-    "postgres", "pysql21", "localhost:5432", database_name)
-
+database_path = getenv("TEST_DATABASE_URL")
+ASSISTANT_TOKEN = getenv("ASSISTANT_TOKEN")
+DIRECTOR_TOKEN = getenv("DIRECTOR_TOKEN")
+PRODUCER_TOKEN = getenv("PRODUCER_TOKEN")
 
 class TemplateTestCase(unittest.TestCase):
     def setUp(self):
         self.app = create_app()
         self.client = self.app.test_client()
-        self.database_name = database_name
-        self.database_path = "postgresql://{}:{}@{}/{}".format(
-            "postgres", "pysql21", "localhost:5432", self.database_name)
+        self.database_path = database_path
         self.db = setup_db(self.app, self.database_path)
         self.db.drop_all()
         self.db.create_all()
@@ -285,7 +284,7 @@ class PublicEndpointsTestCase(TemplateTestCase):
 class CAAssitantTestCase(TemplateTestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.jwt = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImJtUUdqVXlNMXRyYVRhU3pIQXpqWiJ9.eyJpc3MiOiJodHRwczovL2F1dGgwLXNlcnZpY2UudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYwZmZjMjFlMjQ1NGYyMDA2YTIzOTNlMyIsImF1ZCI6ImNhc3RpbmdfYWdlbmN5IiwiaWF0IjoxNjI4NDM2MDMyLCJleHAiOjE2Mjg0NDMyMzIsImF6cCI6ImtIamVFV2pla0ZrNWtlN3NGVTBsTHp2Q3NXRmFHQUtZIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJ2aWV3OmFjdG9ycyIsInZpZXc6Z2VucmVzIiwidmlldzptb3ZpZXMiXX0.KDKfNZOFiiRGc69T7bAjdbX89acBk4Qu-izSsD_6ymOr9LNu7REEPDSlzrYdtYCDTTaK_0e5hRRmDLupgeNHbROKkmp640PHauG8IpbCMWfrhMWqusl8TC-A45gEEzQq4VjkuIiV9ufEsUpInBOLGXZz4Hm6Abonp5qNAMKotXTIB6tq_Apkzx6B4wEEFIwGzNSACR4XUS7Y-95grCjgp9_ipA_dRpdYo0E6iM78I1-e5S38HmP3Z3nx8N6WoBE4jGX2I0apBOHvk-rNCFniNt6M-i8R-F7tTNvTXR5Bi48fbpDZbhQgt7SmI-0Mmx9nlN46n7cfW3Ufbyfrqf2tLg"
+        self.jwt = ASSISTANT_TOKEN
 
     " PUBLIC /endpoints "
     def test_get_genres(self):
@@ -446,7 +445,7 @@ class CAAssitantTestCase(TemplateTestCase):
 class CADirectorTestCase(TemplateTestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.jwt = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImJtUUdqVXlNMXRyYVRhU3pIQXpqWiJ9.eyJpc3MiOiJodHRwczovL2F1dGgwLXNlcnZpY2UudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYwZmZjMWU1ZTE2YjkxMDA2YWQzOTA4NCIsImF1ZCI6ImNhc3RpbmdfYWdlbmN5IiwiaWF0IjoxNjI4NDM1OTEyLCJleHAiOjE2Mjg0NDMxMTIsImF6cCI6ImtIamVFV2pla0ZrNWtlN3NGVTBsTHp2Q3NXRmFHQUtZIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJhZGQ6YWN0b3JzIiwiZGVsZXRlOmFjdG9ycyIsInVwZGF0ZTphY3RvcnMiLCJ1cGRhdGU6Z2VucmVzIiwidXBkYXRlOm1vdmllcyIsInZpZXc6YWN0b3JzIiwidmlldzpnZW5yZXMiLCJ2aWV3Om1vdmllcyJdfQ.ZS6J_t4TO2r5hF2v1mnxurk3EhTnM3tDJjYh6stq-dDYolkeA8iu5LFZhCMALzF8JkhTjZRJ5GZuU-W7_lj-ljryWkTp8mC-5MI-5kqZbskF3e5frBkAcny0hdc2fRakkPh9hs3vu8kCqd3d5hhDCArd6sQe49IKyZ-NLGCjKmvvCXYfJ_aXopCqpAizGJTWmwKNTFUiNh5MiCBfrmHHWToGt-pIGCpvV-gzB_8FE8jOt9_PX208HcW2FfOYW36-3iA9c-T1GceZaybUiWXzHvBWjVHQak1dPsCTRFtg32efs4nvGqseLwDq2DXRvWe-ehDEgM45EPOTsjtl-fvw1g"
+        self.jwt = DIRECTOR_TOKEN
 
     " PUBLIC /endpoints "
     def test_get_genres(self):
@@ -654,7 +653,7 @@ class CADirectorTestCase(TemplateTestCase):
 class CAPoducerTestCase(TemplateTestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, *kwargs)
-        self.jwt = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImJtUUdqVXlNMXRyYVRhU3pIQXpqWiJ9.eyJpc3MiOiJodHRwczovL2F1dGgwLXNlcnZpY2UudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYwZmZjMTNhMzU4MmJjMDA2OTQ2NjQzNiIsImF1ZCI6ImNhc3RpbmdfYWdlbmN5IiwiaWF0IjoxNjI4NDM2MDkzLCJleHAiOjE2Mjg0NDMyOTMsImF6cCI6ImtIamVFV2pla0ZrNWtlN3NGVTBsTHp2Q3NXRmFHQUtZIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJhZGQ6YWN0b3JzIiwiYWRkOmdlbnJlcyIsImFkZDptb3ZpZXMiLCJkZWxldGU6YWN0b3JzIiwiZGVsZXRlOmdlbnJlcyIsImRlbGV0ZTptb3ZpZXMiLCJ1cGRhdGU6YWN0b3JzIiwidXBkYXRlOmdlbnJlcyIsInVwZGF0ZTptb3ZpZXMiLCJ2aWV3OmFjdG9ycyIsInZpZXc6Z2VucmVzIiwidmlldzptb3ZpZXMiXX0.WBR480L6xPypvz73mjtSwsJ88ya2YAWAcDFTmSTL3KcYPjRwqrhujDLQyoiZG30uFe6myx8CUqMrYwli2TnhAgiwuaE5CXtzwl1_xUz6CoFAqYGDmXsRu4Gop0p97149fSrwpkG8QmiT6j0EAqFX2Sen4MQlA1emtG8CTtyOGGdlApjj_Cox2_2YRR0dd63ddxmm8SO8DkPs_T0jvlfUneoZz7ZHVQDGIWiQPNE0DnMmrtrYF-zAg4iPKkaL8dY4lePOSw2LhWaGu6E7NtnUzjecVpYHWZMZ7t65GwdHjsuZZFPwX0ausUQKhFa1Qjge15lx-qP8qunjezJ60lPVcg"
+        self.jwt = PRODUCER_TOKEN
 
     " PUBLIC /endpoints "
     def test_get_genres(self):
