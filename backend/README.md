@@ -146,7 +146,6 @@ This is a Restful API written in Flask micro-framework.
 | Error |  Description            |
 |-------|-------------------------|
 |  400  |  Bad request            |
-|-------|-------------------------|
 |  401  |  Unauthorized           |
 
 
