@@ -146,18 +146,8 @@ This is a Restful API written in Flask micro-framework.
 | Error |  Description            |
 |-------|-------------------------|
 |  400  |  Bad request            |
-|-------|-------------------------|
-|  401  |  Unauthorized           |
-|-------|-------------------------|
-|  403  |  Access Denied          |
-|-------|-------------------------|
-|  404  |  Not found              |
-|-------|-------------------------|
-|  405  |  Method not allowed     |
-|-------|-------------------------|
-|  422  |  Unprocessable Entity   |
-|-------|-------------------------|
-|  500  |  Internal Server Error  |
+
+
 
 # API reference
 
