@@ -54,7 +54,7 @@ This is a Restful API written in Flask micro-framework.
     ```bash
         python3 manage.py setup_db
     ```
-> ![CURL](./screenshots/fill.PNG)
+> ![CURL](./screenshots/fill.png)
 
 
 # Authentication
