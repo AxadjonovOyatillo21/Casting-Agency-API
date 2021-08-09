@@ -94,15 +94,16 @@ This is a Restful API written in Flask micro-framework.
             - `delete:genres`
             - `delete:movies`
     ```
-    - To testing API, I`ve prepared three accounts:
-        - Assistant account:
-            - **email**: caAssistant@gmail.com
-        - Director account:
-            - **email**: caDirector@gmail.com
-        - Executive Producer:
-            - **email**: caProducer@gmail.com
-        - Password:
-            - **casting_agency123**
+
+  - To testing API, I`ve prepared three accounts:
+    - Assistant account:
+        - **email**: caAssistant@gmail.com
+    - Director account:
+        - **email**: caDirector@gmail.com
+    - Executive Producer:
+        - **email**: caProducer@gmail.com
+    - Password:
+        - **casting_agency123**
 
 
 
