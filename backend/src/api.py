@@ -103,7 +103,7 @@ def create_app(test_config=None):
     @decorator.cross_origin()
     @requires_auth("view:actors")
     def get_actors_detail(payload):
-        actors = [actor.short()
+        actors = [actor.format()
                   for actor in Actor.query.order_by(Actor.id).all()]
         current_actors = paginate_data(request, actors)
         return {

@@ -168,10 +168,13 @@ Let's SetUp our curl to send requests
 ```
 
 # GET /
-## General:
+### General:
   - **Home Page😃**
 
-## Example:
+### Permission:
+  - This endpoint is public
+
+### Example📋:
   - Request: ` curl $host `
 
   - Response:
@@ -181,7 +184,239 @@ Let's SetUp our curl to send requests
             "success": true
         }
     ```
+### Errors🐞
+  - This endpoint does'nt raise any errors
 
+
+# GET /genres
+### General:
+  - Get Movie Genres. Returns short information about genres
+
+### Permission:
+  - This endpoint is public
+
+### Example📋:
+  - Request: ` curl $host/genres `
+
+  - Response:
+    ```json
+        {
+        "genres": [
+            {
+            "genre_name": "science-fiction",
+            "id": 2
+            },
+            {
+            "genre_name": "lorem ipsum",
+            "id": 3
+            }
+        ],
+        "success": true,
+        "total_genres": 2
+        }
+    ```
+### Errors🐞
+  - This endpoint does'nt raise any errors
+
+# GET /actors
+### General:
+  - Get Actors. Returns short information about actors
+
+### Permission:
+  - This endpoint is public
+
+### Example📋:
+  - Request: ` curl $host/actors `
+
+  - Response:
+    ```json
+        {
+        "actors": [
+            {
+            "id": 3,
+            "name": "Taner Olmez"
+            },
+            {
+            "id": 4,
+            "name": "Onur Tuna"
+            }
+        ],
+        "success": true,
+        "total_actors": 2
+        }
+    ```
+### Errors🐞
+  - This endpoint does'nt raise any errors
+
+# GET /movies
+### General:
+  - Get Movies. Returns short information about movies
+
+### Permission:
+  - This endpoint is public
+
+### Example📋:
+  - Request: ` curl $host/movies `
+
+  - Response:
+    ```json
+        {
+        "movies": [
+            {
+            "id": 2,
+            "title": "Lucy"
+            },
+            {
+            "id": 3,
+            "title": "Iron Man"
+            }
+        ],
+        "success": true,
+        "total_movies": 2
+        }
+    ```
+### Errors🐞
+  - This endpoint does'nt raise any errors
+
+# GET /genres-detail
+### General:
+  - Get Genres. Returns full information about genres
+
+### Permission:
+  - ` view:genres `
+
+### Example📋:
+  - Request:
+    ```bash
+        curl $host/genres-detail \
+        -H "Authorization: Bearer $token"
+    ```
+
+  - Response:
+    ```json
+        {
+            "genres": [
+                {
+                "genre_name": "science-fiction",
+                "id": 2,
+                "movies_in_this_genre": [
+                    {
+                    "id": 2,
+                    "title": "Lucy"
+                    }
+                ]
+                },
+                {
+                "genre_name": "lorem ipsum",
+                "id": 3,
+                "movies_in_this_genre": []
+                }
+            ],
+            "success": true,
+            "total_genres": 2
+        }
+    ```
+### Errors🐞
+  - This endpoint raises **401** error, if request doesn't contains jwt token or token expired.
+  - This endpoint raises **403** error, if required permission not in jwt.
+
+# GET /actors-detail
+### General:
+  - Get Actors. Returns full information about actors
+
+### Permission:
+  - ` view:actors `
+
+### Example📋:
+  - Request:
+    ```bash
+        curl $host/actors-detail \
+        -H "Authorization: Bearer $token"
+    ```
+
+  - Response:
+    ```json
+        {
+            "actors": [
+                {
+                "age": 33,
+                "gender": "woman",
+                "id": 3,
+                "movies": [
+                    {
+                    "id": 2,
+                    "title": "Lucy"
+                    }
+                ],
+                "name": "Scarlet Johansson"
+                },
+                {
+                "age": 33,
+                "gender": "man",
+                "id": 4,
+                "movies": [],
+                "name": "Onur Tuna"
+                }
+            ],
+            "success": true,
+            "total_actors": 2
+        }
+    ```
+### Errors🐞
+  - This endpoint raises **401** error, if request doesn't contains jwt token or token expired.
+  - This endpoint raises **403** error, if required permission not in jwt.
+
+# GET /movies-detail
+### General:
+  - Get Movies. Returns full information about movies
+
+### Permission:
+  - ` view:movies `
+
+### Example📋:
+  - Request:
+    ```bash
+        curl $host/movies-detail \
+        -H "Authorization: Bearer $token"
+    ```
+
+  - Response:
+    ```json
+        {
+            "movies": [
+                {
+                "id": 2,
+                "movie_actors": [
+                    {
+                    "id": 3,
+                    "name": "Onur Tuna"
+                    }
+                ],
+                "movie_genres": [
+                    {
+                    "genre_name": "science-fiction",
+                    "id": 2
+                    }
+                ],
+                "release_date": "12/12/2006",
+                "title": "Lucy"
+                },
+                {
+                "id": 3,
+                "movie_actors": [],
+                "movie_genres": [],
+                "release_date": "11/12/2007",
+                "title": "Iron Man"
+                }
+            ],
+            "success": true,
+            "total_movies": 2
+        }
+
+    ```
+### Errors🐞
+  - This endpoint raises **401** error, if request doesn't contains jwt token or token expired.
+  - This endpoint raises **403** error, if required permission not in jwt.
 
 
 
