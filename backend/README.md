@@ -7,13 +7,13 @@ This is a Restful API written in Flask micro-framework.
 
 ## Tech Stack
 ------------------------------------------------------------------------------
-|    Language    | Framework |  Database  | Tools for testting | Auth System |
+|    Language    | Framework |  Database  | Tools for testing | Auth System |
 |----------------|-----------|------------|--------------------|-------------|
 | Python(v3.x.x) |   Flask   | Postgresql |  Unittest&Postman  |    Auth0    |
 
 
 # SetUp database
-* Create database called `casting_agency` or something which you like.
+* Create database called `casting_agency`.
 * Create database for API testing and change database_path on ` test_app.py ` file
 
 
@@ -102,7 +102,7 @@ This is a Restful API written in Flask micro-framework.
         - **casting_agency123**
   ```
 ## Login🔐 to accounts*:
-### To `login/signup` you should go to the page: https://auth0-service.us.auth0.com/authorize?response_type=token&audience=casting_agency&client_id=kHjeEWjekFk5ke7sFU0lLzvCsWFaGAKY&redirect_uri=http://127.0.0.1:8100
+### To `login/signup` you should go to the page: [login/signup](https://auth0-service.us.auth0.com/authorize?response_type=token&audience=casting_agency&client_id=kHjeEWjekFk5ke7sFU0lLzvCsWFaGAKY&redirect_uri=http://127.0.0.1:8100)
 > ![CURL](./screenshots/login.PNG)
 
 ### After `login/signup` get token from url, this token is used to send requests to API endpoints
@@ -185,7 +185,7 @@ Let's SetUp our curl to send requests
         }
     ```
 ### Errors🐞
-  - This endpoint does'nt raise any errors
+  - This endpoint doesn't raise any errors
 
 
 # GET /genres
@@ -246,7 +246,7 @@ Let's SetUp our curl to send requests
         }
     ```
 ### Errors🐞
-  - This endpoint does'nt raise any errors
+  - This endpoint doesn't raise any errors
 
 # GET /movies
 ### General:
@@ -276,7 +276,7 @@ Let's SetUp our curl to send requests
         }
     ```
 ### Errors🐞
-  - This endpoint does'nt raise any errors
+  - This endpoint doesn't raise any errors
 
 # GET /genres-detail
 ### General:
@@ -417,6 +417,131 @@ Let's SetUp our curl to send requests
 ### Errors🐞
   - This endpoint raises **401** error, if request doesn't contains jwt token or token expired.
   - This endpoint raises **403** error, if required permission not in jwt.
+
+
+
+# GET /genres/<genre_id>
+### General:
+  - Get Single Genre. Returns genre with given id
+
+### Permission:
+  - ` view:genres `
+
+### Example📋:
+  - Request:
+    ```bash
+        curl $host/genres/2 \
+        -H "Authorization: Bearer $token"
+    ```
+
+  - Response:
+    ```json
+        {
+            "genre": {
+                "genre_name": "science-fiction",
+                "id": 2,
+                "movies_in_this_genre": [
+                    {
+                        "id": 2,
+                        "title": "Lucy"
+                    }
+                ]
+            },
+            "success": true,
+            "total_genres": 2
+        }
+    ```
+### Errors🐞
+  - This endpoint raises **401** error, if request doesn't contains jwt token or token expired.
+  - This endpoint raises **403** error, if required permission not in jwt.
+  - This endpoint raises **404** error, if genre with given id doesn't exixsts in database.
+
+
+
+# GET /actors/<actor_id>
+### General:
+  - Get Single Actor. Returns actor with given id
+
+### Permission:
+  - ` view:actors `
+
+### Example📋:
+  - Request:
+    ```bash
+        curl $host/actors/3 \
+        -H "Authorization: Bearer $token"
+    ```
+
+  - Response:
+    ```json
+        {
+            "actor": {
+                "age": 33,
+                "gender": "woman",
+                "id": 3,
+                "movies": [
+                    {
+                        "id": 2,
+                        "title": "Lucy"
+                    }
+                ],
+                "name": "Scarlett Johansson"
+            },
+            "success": true,
+            "total_actors": 2
+        }
+
+    ```
+### Errors🐞
+  - This endpoint raises **401** error, if request doesn't contains jwt token or token expired.
+  - This endpoint raises **403** error, if required permission not in jwt.
+  - This endpoint raises **404** error, if actor with given id doesn't exixsts in database.
+
+
+# GET /movies/<movie_id>
+### General:
+  - Get Single Movie. Returns movie with given id
+
+### Permission:
+  - ` view:movies `
+
+### Example📋:
+  - Request:
+    ```bash
+        curl $host/movies/2 \
+        -H "Authorization: Bearer $token"
+    ```
+
+  - Response:
+    ```json
+        {
+            "movie": {
+                "id": 2,
+                "movie_actors": [
+                    {
+                        "id": 3,
+                        "name": "Scarlett Johansson"
+                    }
+                ],
+                "movie_genres": [
+                    {
+                        "genre_name": "science-fiction",
+                        "id": 2
+                    }
+                ],
+                "release_date": "12/12/2006",
+                "title": "Lucy"
+            },
+            "success": true,
+            "total_movies": 2
+        }
+    ```
+### Errors🐞
+  - This endpoint raises **401** error, if request doesn't contains jwt token or token expired.
+  - This endpoint raises **403** error, if required permission not in jwt.
+  - This endpoint raises **404** error, if movie with given id doesn't exixsts in database.
+
+
 
 
 
