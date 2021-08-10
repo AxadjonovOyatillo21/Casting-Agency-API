@@ -81,7 +81,9 @@ def age_validator(age):
     if age:
         try:
             age = int(age)
-            return True
+            if age > 0:
+                return True
+            else: abort(400)
         except ValueError:
             abort(400)
     return False

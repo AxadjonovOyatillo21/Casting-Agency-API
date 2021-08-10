@@ -153,6 +153,16 @@ This is a Restful API written in Flask micro-framework.
 |  422  |  Unprocessable Entity   |
 |  500  |  Internal Server Error  |
 
+## Example:
+  - 400:
+  ```json
+    {
+        "error_code": 400,
+        "error_message": "Bad Request",
+        "success": false
+    }
+  ```
+
 
 # API reference
 
@@ -542,6 +552,463 @@ Let's SetUp our curl to send requests
   - This endpoint raises **404** error, if movie with given id doesn't exixsts in database.
 
 
+# `POST` /genres
+### General:
+  - Add new genre.
+  - The request must contain JSON data.
+  - JSON data must contain key:
+    -------------------------------
+    |  key       |  type          |
+    |------------|----------------|
+    | genre_name | String(Unique) |
+
+### Permissions:
+  - ` add:genres `
+
+### Example📋:
+  - Request:
+    ```bash
+        curl $host/genres \
+        -X POST \
+        -H "Authorization: Bearer $token" \
+        -H "Content-Type: application/json" \
+        --DATA '{"genre_name": "scientific"}'
+    ```
+
+  - Response:
+    ```json
+        {
+            "created": true,
+            "genre": {
+                "genre_name": "scientific",
+                "id": 5,
+                "movies_in_this_genre": []
+            },
+            "success": true,
+            "total_genres": 4
+        }
+    ```
+### Errors🐞
+  - This endpoint raises **401** error, if request doesn't contains jwt token or token expired.
+  - This endpoint raises **403** error, if required permission not in jwt.
+  - This endpoint raises **400** error, if required json data incorrect or json data empty or new ` genre_name ` exists in ` database `
+  - This endpoint raises **404** error, if genre with given id doesn't exists in database
+  - This endpoint raises **422** error, if inserting was unsuccessfull
+
+# `POST` /actors
+### General:
+  - Add new actor.
+  - The request must contain JSON data.
+  - JSON data must contain keys:
+    ---------------------------------------------------------------------------------------------------------------------------
+    | key       | type                                     | isRequired | Description                                         |
+    |-----------|------------------------------------------|------------|-----------------------------------------------------|
+    | name      | String                                   |  required  | full name of actor                                  |
+    | age       | Integer                                  |  required  | age of actor                                        |
+    | gender    | String(values must be: `man` or `woman`) |  required  | gender                                              |
+    | movies_id | Array with integer values                |  optional  | an array of movies id, where this actor played role |
+
+### Permissions:
+  - ` add:actors `
+
+### Example📋:
+  - Request:
+    ```bash
+        curl $host/actors \
+        -X POST \
+        -H "Authorization: Bearer $token" \
+        -H "Content-Type: application/json" \
+        --data-raw '{
+            "name": "Tony Stark",
+            "age": 30,
+            "gender": "man",
+            "movies_id": [3]
+        }'
+    ```
+
+  - Response:
+    ```json
+        {
+            "actor": {
+                "id": 5,
+                "name": "Tony Stark"
+            },
+            "created": true,
+            "success": true,
+            "total_actors": 3
+        }
+    ```
+### Errors🐞
+  - This endpoint raises **401** error, if request doesn't contains jwt token or token expired.
+  - This endpoint raises **403** error, if required permission not in jwt.
+  - This endpoint raises **400** error:
+    - If name length < 3
+    - If age:
+      - equals to 0, or less than 0
+      - if string
+    - if gender incorrect, correct data: "man"/"woman"
+    - if movies_id not an array or does'nt include integer values, or movie doesn't exists in database with given id on array
+    - This endpoint raises **404** error, if actor with given id doesn't exists in database
+    - This endpoint raises **422** error, if inserting was unsuccessfull
+
+    Example:
+      - Request:
+        ```bash
+            curl $host/actors \
+            -X POST \
+            -H "Authorization: Bearer $token" \
+            -H "Content-Type: application/json" \
+            --data-raw '{
+                "name": "To",
+                "age": "a23",
+                "gender": "mannn",
+                "movies_id": ["lorem"]
+            }'
+        ```
+      - Response:
+       ```json
+            {
+                "error_code": 400,
+                "error_message": "Bad Request",
+                "success": false
+            }
+        ```
 
 
+# `POST` /movies
+### General:
+  - Add new movies.
+  - The request must contain JSON data.
+  - JSON data must contain keys:
+    ------------------------------------------------------------------------------------------------------------------------------
+    | key          | type                                     | isRequired | Description                                         |
+    |--------------|------------------------------------------|------------|-----------------------------------------------------|
+    | title        | String(Unique)                           |  required  | full name of actor                                  |
+    | release_date | String, pattern="DD/MM/YY"               |  required  | release date                                        |
+    | actors_id    | Array with integer values                |  optional  | an array of movie actors id                         |
+    | genres_id    | Array with integer values                |  optional  | an array of movies genres id                        |
+
+### Permissions:
+  - ` add:movies `
+
+### Example📋:
+  - Request:
+    ```bash
+        curl $host/movies \
+        -X POST \
+        -H "Authorization: Bearer $token" \
+        -H "Content-Type: application/json" \
+        --data-raw '{
+            "title": "Mucize Doktor",
+            "release_date": "12/12/2019",
+            "genres_id": [2, 5],
+            "actors_id": [5, 7]
+        }'
+    ```
+
+  - Response:
+    ```json
+        {
+            "created": true,
+            "movie": {
+                "id": 4,
+                "title": "Mucize Doktor"
+            },
+            "success": true,
+            "total_movies": 3
+        }
+    ```
+### Errors🐞
+  - This endpoint raises **401** error, if request doesn't contains jwt token or token expired.
+  - This endpoint raises **403** error, if required permission not in jwt.
+  - This endpoint raises **400** error:
+    - if title length < 3 or empty
+    - if movie with given title exists in database
+    - if release date incorrect
+      - "DD/MM/YY" -> "DD" musn't be > 31 and < 0, "MM" musn't be > 12 and < 0
+    - if gender incorrect, correct data: "man"/"woman"
+    - if actors_id not an array or does'nt include integer values, or actor doesn't exists in database with given id on array
+    - if genres_id not an array or does'nt include integer values, or genre doesn't exists in database with given id on array
+    - This endpoint raises **404** error, if movie with given id doesn't exists in database
+    - This endpoint raises **422** error, if inserting was unsuccessfull
+
+    Example:
+      - Request:
+        ```bash
+            curl $host/movies \
+            -X POST \
+            -H "Authorization: Bearer $token" \
+            -H "Content-Type: application/json" \
+            --data-raw '{
+                "title": "",
+                "release_date": "12213/-1000/2019",
+                "genres_id": ["adasd", 123213213213],
+                "actors_id": [890089089321123]
+            }'
+        ```
+      - Response:
+       ```json
+            {
+                "error_code": 400,
+                "error_message": "Bad Request",
+                "success": false
+            }
+        ```
+
+
+# `PATCH` /genres/<genre_id>
+### General:
+  - Update genre.
+  - The request must contain JSON data.
+  - JSON data must contain key:
+    -------------------------------
+    |  key       |  type          |
+    |------------|----------------|
+    | genre_name | String(Unique) |
+
+### Permissions:
+  - ` update:genres `
+
+### Example📋:
+  - Request:
+    ```bash
+        curl $host/genres/2 \
+        -X PATCH \
+        -H "Authorization: Bearer $token" \
+        -H "Content-Type: application/json" \
+        --DATA '{"genre_name": "medicine"}'
+    ```
+
+  - Response:
+    ```json
+        {
+            "genre": {
+                "genre_name": "medicine",
+                "id": 2
+            },
+            "success": true,
+            "total_genres": 4,
+            "updated": true
+        }
+    ```
+### Errors🐞
+  - This endpoint raises **401** error, if request doesn't contains jwt token or token expired.
+  - This endpoint raises **403** error, if required permission not in jwt.
+  - This endpoint raises **400** error, if json data empty, or len of value `genre_name` < 3
+  - This endpoint doesn't raise **400** error, if you give empty value to `genre_name` key
+  - This endpoint raises **404** error, if genre with given id doesn't exists in database
+  - This endpoint raises **422** error, if updating was unsuccessfull
+
+
+# `PATCH` /actors/<actor_id>
+### General:
+  - Update actor.
+  - The request must contain JSON data.
+  - JSON data must contain keys:
+    ----------------------------------------------------------------------------------------------------------------------------------
+    | key              | type                                     | isRequired | Description                                         |
+    |------------------|------------------------------------------|------------|-----------------------------------------------------|
+    | name             | String                                   |  required  | full name of actor                                  |
+    | age              | Integer                                  |  required  | age of actor                                        |
+    | gender           | String(values must be: `man` or `woman`) |  required  | gender                                              |
+    | movies_id        | Array with integer values                |  optional  | an array of movies id, where this actor played role |
+    | remove_movies_id | Array with integer values                |  optional  | an array of movies id, which will be removed        |
+  - You can update one parameter or all :)
+
+### Permissions:
+  - ` update:actors `
+
+### Example📋:
+  - Request:
+    ```bash
+        curl $host/actors/5 \
+        -X PATCH \
+        -H "Authorization: Bearer $token" \
+        -H "Content-Type: application/json" \
+        --data-raw '{
+            "name": "Lorem Stark",
+            "age": 33,
+            "remove_movies_id": [3]
+        }'
+    ```
+
+  - Response:
+    ```json
+        {
+            "actor": {
+                "id": 5,
+                "name": "Lorem Stark"
+            },
+            "success": true,
+            "total_actors": 8,
+            "updated": true
+        }
+    ```
+### Errors🐞
+  - This endpoint raises **401** error, if request doesn't contains jwt token or token expired.
+  - This endpoint raises **403** error, if required permission not in jwt.
+  - This endpoint raises **400** error:
+    - If name length < 3
+    - If age:
+      - equals to 0, or less than 0
+      - if string
+    - if gender incorrect, correct data: "man"/"woman"
+    - if movies_id not an array or does'nt include integer values, or movie doesn't exists in database with given id on array
+    - if remove_movies_id not an array or does'nt include integer values, or movie doesn't exists in database with given id on array
+    - This endpoint doesn't raise **400** error, if json data empty looks like: {}
+    - This endpoint raises **404** error, if actor with given id doesn't exists in database
+    - This endpoint raises **422** error, if updating was unsuccessfull
+
+
+# `PATCH` /movies/<movie_id>
+### General:
+  - Update movie.
+  - The request must contain JSON data.
+  - JSON data must contain keys:
+    ----------------------------------------------------------------------------------------------------------------------------------
+    | key              | type                                     | isRequired | Description                                         |
+    |------------------|------------------------------------------|------------|-----------------------------------------------------|
+    | title            | String(Unique)                           |  optional  | full name of actor                                  |
+    | release_date     | String, pattern="DD/MM/YY"               |  optional  | release date                                        |
+    | actors_id        | Array with integer values                |  optional  | an array of movie actors id                         |
+    | genres_id        | Array with integer values                |  optional  | an array of movies genres id                        |
+    | remove_actors_id | Array with integer values                |  optional  | an array of actors id which will be removed         |
+    | remove_genres_id | Array with integer values                |  optional  | an array of genres id which will be removed         |
+  - You can update one parameter or all :)
+
+### Permissions:
+  - ` update:movies `
+
+### Example📋:
+  - Request:
+    ```bash
+        curl $host/movies/4 \
+        -X POST \
+        -H "Authorization: Bearer $token" \
+        -H "Content-Type: application/json" \
+        --data-raw '{
+            "title": "Good Doctor",
+            "remove_genres_id": [2],
+            "remove_actors_id": [5, 7]
+        }'
+    ```
+  - Response:
+    ```json
+        {
+            "movie": {
+                "id": 4,
+                "title": "Good Doctor"
+            },
+            "success": true,
+            "total_movies": 4,
+            "updated": true
+        }
+    ```
+
+### Errors🐞
+  - This endpoint raises **401** error, if request doesn't contains jwt token or token expired.
+  - This endpoint raises **403** error, if required permission not in jwt.
+  - This endpoint raises **400** error:
+    - if title length < 3 or empty
+    - if movie with given title exists in database
+    - if release date incorrect
+      - "DD/MM/YY" -> "DD" musn't be > 31 and < 0, "MM" musn't be > 12 and < 0
+    - if gender incorrect, correct data: "man"/"woman"
+    - if actors_id not an array or does'nt include integer values, or actor doesn't exists in database with given id on array
+    - if genres_id not an array or does'nt include integer values, or genre doesn't exists in database with given id on array
+    - if remove_actors_id not an array or does'nt include integer values, or actor doesn't exists in database with given id on array
+    - if remove_genres_id not an array or does'nt include integer values, or genre doesn't exists in database with given id on array
+    - This endpoint doesn't raise **400** error, if json data empty looks like: {}
+    - This endpoint raises **404** error, if movie with given id doesn't exists in database
+    - This endpoint raises **422** error, if updating was unsuccessfull
+
+
+
+# `DELETE` /genres/<genre_id>
+### General:
+    - Delete genre with given id.
+
+### Permissions:
+    - ` delete:genres `
+
+### Example📋:
+    - Request:
+      ```bash
+        curl $host/genres/2 \
+        -X DELETE \
+        -H "Authorization: Bearer $token"
+      ```
+    - Response:
+      ```json
+        {
+            "deleted_id": 2,
+            "success": true,
+            "total_genres": 3
+        }
+      ```
+### Errors🐞
+  - This endpoint raises **401** error, if request doesn't contains jwt token or token expired.
+  - This endpoint raises **403** error, if required permission not in jwt.
+  - This endpoint raises **404** error, if genre with given id doesn't exists in database
+  - This endpoint raises **422** error, if deleting was unsuccessfull
+
+
+# `DELETE` /actors/<actor_id>
+### General:
+    - Delete actor with given id.
+
+### Permissions:
+    - ` delete:actors `
+
+### Example📋:
+    - Request:
+      ```bash
+        curl $host/actors/5 \
+        -X DELETE \
+        -H "Authorization: Bearer $token"
+      ```
+    - Response:
+      ```json
+        {
+            "deleted_id": 5,
+            "success": true,
+            "total_actors": 7
+        }
+      ```
+### Errors🐞
+  - This endpoint raises **401** error, if request doesn't contains jwt token or token expired.
+  - This endpoint raises **403** error, if required permission not in jwt.
+  - This endpoint raises **404** error, if actor with given id doesn't exists in database
+  - This endpoint raises **422** error, if deleting was unsuccessfull
+
+# `DELETE` /movies/<movie_id>
+### General:
+    - Delete movie with given id.
+
+### Permissions:
+    - ` delete:movies `
+
+### Example📋:
+    - Request:
+      ```bash
+        curl $host/movies/4 \
+        -X DELETE \
+        -H "Authorization: Bearer $token"
+      ```
+    - Response:
+      ```json
+        {
+            "deleted_id": 4,
+            "success": true,
+            "total_movies": 3
+        }
+      ```
+### Errors🐞
+  - This endpoint raises **401** error, if request doesn't contains jwt token or token expired.
+  - This endpoint raises **403** error, if required permission not in jwt.
+  - This endpoint raises **404** error, if movie with given id doesn't exists in database
+  - This endpoint raises **422** error, if deleting was unsuccessfull
+
+
+Author 👨🏻‍💻: Axadjonov Oyatillo | Uzbekistan 🇺🇿
 
