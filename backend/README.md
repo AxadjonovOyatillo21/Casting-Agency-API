@@ -1010,7 +1010,7 @@ Let's SetUp our curl to send requests
   - This endpoint raises **404** error, if movie with given id doesn't exists in database
   - This endpoint raises **422** error, if deleting was unsuccessfull
 
-> [!CURL](./screenshots/deployed.png)
+> ![CURL](./screenshots/deployed.png)
 
 Author 👨🏻‍💻: Axadjonov Oyatillo | Uzbekistan 🇺🇿
 
